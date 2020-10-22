@@ -16,7 +16,7 @@ export class ListComponent implements OnInit {
   newCity: CityI = {
     name: null
   };
-  labelButtonNew:string = "Add new";
+  labelButtonNew: string = "Add new";
 
   constructor(private dataSvc: DataService) { }
 
@@ -25,7 +25,7 @@ export class ListComponent implements OnInit {
   }
 
   toggleShowNew() {
-    if(this.showNew) {
+    if (this.showNew) {
       this.labelButtonNew = "Add new";
       this.showNew = false;
       this.saveNew();
@@ -44,20 +44,16 @@ export class ListComponent implements OnInit {
   }
 
   saveNew() {
-    console.log('Save new ',this.newCity);
-    this.dataSvc.addNewCity(this.newCity).subscribe(city => this.cities.push(city)); 
+    console.log('Save new ', this.newCity);
+    this.dataSvc.addNewCity(this.newCity).subscribe(city => this.cities.push(city));
   }
 
   onUpdateCity(myCity: CityI): void {
+    console.log('City:', myCity);
+    console.log('id:', myCity.id);
     this.dataSvc.updateCities(myCity).subscribe(city => {
-      /* Comprueba que city sea true, si es asi busca el indice de el arreglo 
-         comprobando que ese indice sea igual al que esta en la api */
-      const indexToUpdate = city ? this.cities.findIndex(c => c.id == city.id) : -1;
-      if (indexToUpdate > -1) {
-        this.cities[indexToUpdate] = city;
-        this.toggleEditOn();
-      }
-    })
+      this.toggleEditOn();
+    });
   }
 
   onDeleteCity(myCity: CityI): void {

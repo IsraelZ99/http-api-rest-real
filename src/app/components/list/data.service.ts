@@ -7,7 +7,7 @@ import { HttpClient } from "@angular/common/http";
   providedIn: 'root'
 })
 export class DataService {
-  private urlAPI = 'api/cities';
+  private urlAPI = 'https://dominicode-api.herokuapp.com/api/cities';
 
   constructor(private http: HttpClient) { }
 
@@ -20,6 +20,7 @@ export class DataService {
   }
 
   updateCities(city: CityI): Observable<CityI> {
+    this.urlAPI = `${this.urlAPI}/${city.id}`
     return this.http.put<CityI>(this.urlAPI, city);
   }
 

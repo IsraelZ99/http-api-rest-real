@@ -1,0 +1,24 @@
+<h1>Cities</h1>
+
+<ul class="list-group">
+    <li class="list-group-item" *ngFor="let city of cities" (click)="onSelectCity(city)" (dblclick)="toggleEditOn()">
+        <span class="badge badge-dark p-2">
+            {{ city.name }}
+        </span>
+        <span *ngIf="!editOn" class="badge badge-danger ml-2" (click)="onDeleteCity(city)">X</span>
+    </li>
+</ul>
+
+<div class="input-group mt-2" *ngIf="editOn">
+    <input type="text" name="editOn" class="form-control" [(ngModel)]="selectedCity.name" onfocus="this.select()" autofocus>
+    <button class="btn btn-warning" (click)="onUpdateCity(selectedCity)">
+        Update city
+    </button>
+</div>
+
+<div class="input-group mt-2" *ngIf="!editOn">
+    <input type="text" *ngIf="showNew" name="newCity" class="form-control" [(ngModel)]="newCity.name" onfocus="this.select()" autofocus>
+    <button class="btn btn-success" (click)="toggleShowNew()">
+        {{ labelButtonNew }}
+    </button>
+</div>
